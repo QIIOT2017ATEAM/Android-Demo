@@ -6,21 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Login extends AppCompatActivity {
+public class RegisterID extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register_id);
 
-        Button login = (Button)findViewById(R.id.btn_login);
+        Button submit = (Button)findViewById(R.id.btn_submit);
 
-        login.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent login = new Intent(Login.this, RegisterID.class); //요고는 새로운 인텐트 생성시키는거 ㅇㅋㅇㅋ?
-                startActivity(login);
+                Intent RegisterID = new Intent(RegisterID.this, MainActivity.class);
+                startActivity(RegisterID);
+                finish();
             }
         });
+
     }
 }

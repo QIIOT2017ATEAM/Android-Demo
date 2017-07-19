@@ -11,6 +11,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="프래그먼트 2" />
+        android:text="안경수" />
 
 </FrameLayout>

@@ -11,6 +11,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="프래그먼트 4" />
+        android:text="권상은" />
 
 </FrameLayout>

@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="프래그먼트 3" />
+        android:text="신승균" />
 
 </FrameLayout>

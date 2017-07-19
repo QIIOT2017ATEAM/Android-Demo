@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int FRAGMENT4 = 4;
 
     private Button btn_1, btn_2, btn_3, btn_4;
-    private Button btn_login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_4.setOnClickListener(this);
 
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
-
         callFragment(FRAGMENT1);
+
+        /*   btn_1.setOnClickListener(new View.OnClickListener() {  //setOnClickListener 는 버튼을 클릭시 이벤트발생, View.OnClickListener()는 화면을 불러오고 아래에서 함수설정
+        //      @Override
+        //     public void onClick(View v) {
+        //      }
+           });   이걸로 설정하는 방법도 한번 알아보자   */
 
 
 
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void callFragment(int frament_no){
+    private void callFragment(int frament_no){ //이게 프레그먼트 부르는 함수같은데 해석 잘 못하겠듬 ㅠ
 
         // 프래그먼트 사용을 위해
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
