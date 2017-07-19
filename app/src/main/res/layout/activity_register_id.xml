@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
-        android:hint="Email"
+        android:hint="Name"
         android:inputType="textEmailAddress"
         android:layout_above="@+id/input_yourpw1"
         android:layout_alignParentLeft="true"

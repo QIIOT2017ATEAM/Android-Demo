@@ -18,7 +18,7 @@ public class RegisterID extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent RegisterID = new Intent(RegisterID.this, MainActivity.class);
+                Intent RegisterID = new Intent(RegisterID.this, Login.class);
                 startActivity(RegisterID);
                 finish();
             }
