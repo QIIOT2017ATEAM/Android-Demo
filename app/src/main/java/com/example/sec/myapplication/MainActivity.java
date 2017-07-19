@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int FRAGMENT4 = 4;
 
     private Button btn_1, btn_2, btn_3, btn_4;
+    private Button btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
