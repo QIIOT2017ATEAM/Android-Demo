@@ -1,6 +1,8 @@
 package com.example.sec.myapplication;
 
+
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,14 +29,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
+    private Button btn_on;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //액션바 설정하는거//
+        getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999)); //액션바 배경색 변경
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//홈버튼 표시
+        //액션바 숨기기
+        //hideActionBar();
 
 
-        // 위젯에 대한 참조
+                // 위젯에 대한 참조
         btn_1 = (Button)findViewById(R.id.btn_1);
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
@@ -52,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()){ //v.getid()가 뷰에있는놈을 들고오는거
             case R.id.btn_1 :
                 // '버튼1' 클릭 시 '프래그먼트1' 호출
                 callFragment(FRAGMENT1);
@@ -82,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (frament_no){
             case 1:
                 // '프래그먼트1' 호출
-                Fragment1 fragment1 = new Fragment1();
-                transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();
+                Fragment1 fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
+                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함
+                transaction.commit();  // 있어야함 위치확정
                 break;
 
             case 2:
@@ -110,5 +126,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+/*
+    BluetoothAdapter myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    if(myBluetoothAdapter == null){
+        btn_on.setEnabled(false);
+    }else{
+
+    }
+*/
+
+
+    /*
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(mBluetoothadapter == null) {
+         //장치가 블루투스를 지원하지 않는 경우.
+        }else {
+        // 장치가 블루투스를 지원하는 경우.
+        }
+    */
+
+    //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
+        int id = item.getItemId();
+        if (id == R.id.actionbar) {
+            Toast.makeText(this, "블루투스", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //액션바 숨기기
+    private void hideActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null)
+            actionBar.hide();
+    }
+
+
+
 
 }
