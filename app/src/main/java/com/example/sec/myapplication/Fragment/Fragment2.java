@@ -6,10 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-<<<<<<< HEAD:app/src/main/java/com/example/sec/myapplication/Fragment/Fragment2.java
+
 import com.example.sec.myapplication.R;
 
-=======
 import java.util.ArrayList;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -18,7 +17,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
->>>>>>> master:app/src/main/java/com/example/sec/myapplication/Fragment2.java
 
 /**
  * A simple {@link Fragment} subclass.

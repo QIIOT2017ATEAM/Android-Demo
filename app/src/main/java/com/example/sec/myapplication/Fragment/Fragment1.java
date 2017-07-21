@@ -6,12 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-<<<<<<< HEAD:app/src/main/java/com/example/sec/myapplication/Fragment/Fragment1.java
 import com.example.sec.myapplication.R;
 import com.github.mikephil.charting.charts.LineChart;
 
-=======
->>>>>>> master:app/src/main/java/com/example/sec/myapplication/Fragment1.java
 /**
  * A simple {@link Fragment} subclass.
  */
