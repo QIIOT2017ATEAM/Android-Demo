@@ -29,6 +29,9 @@
         <activity android:name=".RegisterID" />
         <activity android:name=".Find" />
         <activity android:name=".Findid"></activity>
+        <activity android:name=".DeviceListActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog"/>
+
     </application>
 
 </manifest>
