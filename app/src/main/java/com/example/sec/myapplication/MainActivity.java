@@ -1,23 +1,29 @@
 package com.example.sec.myapplication;
 
 
-import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.sec.myapplication.Fragment.Fragment1;
+import com.example.sec.myapplication.Fragment.Fragment2;
+import com.example.sec.myapplication.Fragment.Fragment3;
+import com.example.sec.myapplication.Fragment.Fragment4;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,9 +37,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_on;
 
+    private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
+    private BluetoothChatService mChatService = null;
+
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+    private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
+
+    private ListView mConversationView;
+    private EditText mOutEditText;
+    private Button mSendButton;
+
+    /**
+     * Name of the connected device
+     */
+    private String mConnectedDeviceName = null;
+    /**
+     * Array adapter for the conversation thread
+     */
+    private ArrayAdapter<String> mConversationArrayAdapter;
+    /**
+     * String buffer for outgoing messages
+     */
+    private StringBuffer mOutStringBuffer;
+    /**
+     * Local Bluetooth adapter
+     */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
 
         //액션바 설정하는거//
@@ -126,28 +160,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-/*
-    BluetoothAdapter myBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    if(myBluetoothAdapter == null){
-        btn_on.setEnabled(false);
-    }else{
-
-    }
-*/
 
 
-    /*
-    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothadapter == null) {
-         //장치가 블루투스를 지원하지 않는 경우.
-        }else {
-        // 장치가 블루투스를 지원하는 경우.
-        }
-    */
-
-    //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -156,7 +172,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
         int id = item.getItemId();
         if (id == R.id.actionbar) {
-            Toast.makeText(this, "블루투스", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "제발 되라", Toast.LENGTH_SHORT).show();
+            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();//내 기기 블루투스 상태 아는놈, 정적메소드 getDefaultAdapter 호출하여 객체생성
+                if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
+                    Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+                }
+
+            if (!mBluetoothAdapter.isEnabled()) { //isEnabled()호출해서 현재 블루투스가 활성화되있는지
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT) ; //블루투스를 활성화시키려면 ACTION_REQUEST_ENABLE 인텐트로 startActivityForResult()를 호출
+            }else
+            {
+                Intent serverIntent = new Intent(this, DeviceListActivity.class); //디바이스 찾는 인텐드
+                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                return true;
+            }//꺼져있을경우 블루투스 켜주는 메소드(창 띄어서 켤지말지 결정함)
+
+            /*
+            다음에 구현한 기능으로는 블루투스 검색기능이다.
+            블루투스 검색의 시작과 결과는 모두 BroadcastReceiver 를 이용하여 결과를 받게함
+            adapter 는 ListView 의 Adapter 로 검색장치의 이름과 주소를 표시
+            검색은 버튼의 OnClickListener 로 버튼을 클릭하였을 때 현재 검색여부를 확인하고 검색을 하도록 하였다.
+            */
+
+
+
             return true;
         }
 
@@ -164,11 +204,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+        /*
+    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(mBluetoothadapter == null) {
+         //장치가 블루투스를 지원하지 않는 경우.
+        }else {
+        // 장치가 블루투스를 지원하는 경우.
+        }
+       */
+
     //액션바 숨기기
     private void hideActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null)
             actionBar.hide();
+    }
+
+    private void ensureDiscoverable() {
+        if (mBluetoothAdapter.getScanMode() !=
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
     }
 
 
