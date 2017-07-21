@@ -7,16 +7,32 @@
     android:layout_height="match_parent"
     tools:context="com.example.sec.myapplication.MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnfindid"
+            android:layout_gravity="center"
+            android:text="Find"
+            android:textAlignment="center"
+            android:textSize="13pt"
+            android:layout_marginTop="160dp"/>
+
         <Button
             android:id="@+id/btn_findid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID" />
+
+            android:layout_above="@+id/btn_findpw"
+            android:layout_marginTop="51dp"
+            android:text="ID"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_findpw"
@@ -24,7 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="PW" />
+            android:layout_below="@+id/btn_findid"
+            android:layout_marginTop="10dp"
+            android:text="PW"
+            android:textSize="18sp" />
 
 
     </LinearLayout>

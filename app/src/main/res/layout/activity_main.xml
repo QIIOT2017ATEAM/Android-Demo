@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     tools:context="com.example.sec.myapplication.MainActivity">
 
 
@@ -24,30 +25,35 @@
 
             <Button
                 android:id="@+id/btn_1"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Tab 1" />
+                android:layout_weight="1"
+                android:background="@mipmap/hearty"/>
 
             <Button
                 android:id="@+id/btn_2"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.98"
-                android:text="Tab 2" />
+                android:layout_weight="1"
+                android:background="@mipmap/airi"/>
 
             <Button
                 android:id="@+id/btn_3"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.98"
-                android:text="Button" />
+                android:layout_weight="1"
+                android:background="@mipmap/map" />
 
             <Button
                 android:id="@+id/btn_4"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.02"
-                android:text="Button" />
+                android:layout_weight="1"
+                android:background="@mipmap/setting" />
 
         </LinearLayout>
 

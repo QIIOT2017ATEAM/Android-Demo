@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="question">
+        <item>your hometown</item>
+        <item>father name</item>
+        <item>mother name</item>
+    </string-array>
+</resources>

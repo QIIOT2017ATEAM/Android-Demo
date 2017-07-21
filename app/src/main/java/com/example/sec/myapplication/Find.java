@@ -18,7 +18,7 @@ public class Find extends AppCompatActivity {
         findid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent findid = new Intent(Find.this, Login.class); //일단 지금은 findid 누르면 Login으로 가게했는데 나중에 조건문써서 설정하면될듯
+                Intent findid = new Intent(Find.this, Findid.class); //일단 지금은 findid 누르면 Login으로 가게했는데 나중에 조건문써서 설정하면될듯
                 startActivity(findid);
             }
         });

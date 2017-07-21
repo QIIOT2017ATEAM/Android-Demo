@@ -1,12 +1,18 @@
 package com.example.sec.myapplication;
 
+import android.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
@@ -15,11 +21,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // 위젯에 대한 참조
         btn_1 = (Button)findViewById(R.id.btn_1);
@@ -41,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //     public void onClick(View v) {
         //      }
            });   이걸로 설정하는 방법도 한번 알아보자   */
-
-
-
     }
 
     @Override
@@ -106,6 +110,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
 
 }
