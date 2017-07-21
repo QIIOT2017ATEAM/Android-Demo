@@ -19,6 +19,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_1, btn_2, btn_3, btn_4;
 
     private Button btn_on;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

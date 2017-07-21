@@ -24,7 +24,6 @@
         </activity>
         <activity android:name=".RegisterID" />
         <activity android:name=".Find" />
-        <activity android:name=".findid" />
         <activity android:name=".Findid"></activity>
     </application>
 
