@@ -138,7 +138,7 @@ public class BluetoothChatService {
      * @param device The BluetoothDevice to connect
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
-    public synchronized void connect(BluetoothDevice device, boolean secure) {
+    public synchronized void connect(BluetoothDevice device, boolean secure) {  //소켓이 통신 연결통로
         Log.d(TAG, "connect to: " + device);
 
         // Cancel any thread attempting to make a connection
@@ -156,7 +156,7 @@ public class BluetoothChatService {
         }
 
         // Start the thread to connect with the given device
-        mConnectThread = new ConnectThread(device, secure);
+        mConnectThread = new ConnectThread(device, secure);  //애가 쓰레드 만들고
         mConnectThread.start();
         // Update UI title
         updateUserInterfaceTitle();
