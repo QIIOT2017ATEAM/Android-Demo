@@ -26,10 +26,16 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+<<<<<<< HEAD
 import com.example.sec.myapplication.Fragment.Fragment1;
 import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
+=======
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.ArrayList;
+>>>>>>> master
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_on;
 
+<<<<<<< HEAD
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
     private BluetoothChatService mChatService = null;
 
@@ -70,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Local Bluetooth adapter
      */
 
+=======
+>>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

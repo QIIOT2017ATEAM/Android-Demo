@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         android:orientation="vertical">
 
         <TextView
@@ -19,16 +20,17 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnfindid"
             android:layout_gravity="center"
+            android:layout_marginTop="160dp"
             android:text="Find"
             android:textAlignment="center"
-            android:textSize="13pt"
-            android:layout_marginTop="160dp"/>
+            android:textSize="13pt" />
 
         <Button
             android:id="@+id/btn_findid"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
+            android:layout_height="wrap_content"
             android:layout_above="@+id/btn_findpw"
             android:layout_marginTop="51dp"
             android:text="ID"
@@ -36,6 +38,7 @@
 
         <Button
             android:id="@+id/btn_findpw"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
