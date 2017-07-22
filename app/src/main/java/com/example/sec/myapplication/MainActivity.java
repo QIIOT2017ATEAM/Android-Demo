@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
@@ -30,6 +31,9 @@ import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
 import com.github.mikephil.charting.data.BarEntry;
+
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
 
 
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int FRAGMENT2 = 2;
     private final int FRAGMENT3 = 3;
     private final int FRAGMENT4 = 4;
+
+
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+    public TextView text_input;
 
     /**
      * Name of the connected device
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Array adapter for the conversation thread
      */
-    private ArrayAdapter<String> mConversationArrayAdapter;
+    private ArrayAdapter<String> mConversationArrayAdapter; //<string>을 <comment>로 바꿈
     /**
      * String buffer for outgoing messages
      */
@@ -92,12 +99,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
         btn_4 = (Button)findViewById(R.id.btn_4);
+        text_input = (TextView)findViewById(R.id.text_input) ;
 
         // 탭 버튼에 대한 리스너 연결
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
         btn_4.setOnClickListener(this);
+
+
 
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
         callFragment(FRAGMENT1);
@@ -132,7 +142,86 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-//핸들러가 UI바꾸는거 돠주는거
+
+    private void callFragment(int frament_no){ //이게 프레그먼트 부르는 함수같은데 해석 잘 못하겠듬 ㅠ
+
+        // 프래그먼트 사용을 위해
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        switch (frament_no){
+            case 1:
+                // '프래그먼트1' 호출
+                Fragment1 fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
+                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함
+                transaction.commit();  // 있어야함 위치확정
+                break;
+
+            case 2:
+                // '프래그먼트2' 호출
+                Fragment2 fragment2 = new Fragment2();
+                transaction.replace(R.id.fragment_container, fragment2);
+                transaction.commit();
+                break;
+
+            case 3:
+                // '프래그먼트3' 호출
+                Fragment3 fragment3 = new Fragment3();
+                transaction.replace(R.id.fragment_container, fragment3);
+                transaction.commit();
+                break;
+
+            case 4:
+                // '프래그먼트4' 호출
+                Fragment4 fragment4 = new Fragment4();
+                transaction.replace(R.id.fragment_container, fragment4);
+                transaction.commit();
+                break;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
+        int id = item.getItemId();
+        if (id == R.id.actionbar) {
+                if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
+                    Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+                }
+
+            if (!mBluetoothAdapter.isEnabled()) { //isEnabled()호출해서 현재 블루투스가 활성화되있는지
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT) ; //블루투스를 활성화시키려면 ACTION_REQUEST_ENABLE 인텐트로 startActivityForResult()를 호출
+            }else
+            {
+                Intent serverIntent = new Intent(this, DeviceListActivity.class); //디바이스 찾는 인텐드
+                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
+                Toast.makeText(this, " Hi", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Establish connection with other device
+     *
+     * @param data   An {@link Intent} with {@link DeviceListActivity#EXTRA_DEVICE_ADDRESS} extra.
+     * @param secure Socket Security type - Secure (true) , Insecure (false)
+     */
+    private void connectDevice(Intent data, boolean secure) { //상대방 블루투스 주소받아와서
+        // Get the device MAC address
+        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS); // Get the BluetoothDevice object
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address); // Attempt to connect to the device
+        mChatService.connect(device, secure);
+    }
+
+    //핸들러가 UI바꾸는거 돠주는거
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -149,18 +238,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                     }
                     break;
-                case Constants.MESSAGE_WRITE:
+                /*case Constants.MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     mConversationArrayAdapter.add("Me:  " + writeMessage);
-                    break;
+                    break; */
                 case Constants.MESSAGE_READ://핸들러로와서 메세지 받을경우에 일로와서 이거실행
-                    byte[] readBuf = (byte[]) msg.obj;
+                    byte[] readBuf = (byte[]) msg.obj; //byte한글자 ,버퍼가 문자
                     // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-                    mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
-                    break;
+                    String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
+                    //여기서 오류 자주남
+                    Log.v("readMessage : ", readMessage);
+                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+                    //text_input.setText(mOutEditText.getText());
+                   // text_input.setText(readMessage.toString());
+                    break;// ----------------------------------------------------------------------------------------------------
+
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
                     mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
@@ -206,119 +300,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     this.finish();
                 }
         }
-    }
-
-    private void callFragment(int frament_no){ //이게 프레그먼트 부르는 함수같은데 해석 잘 못하겠듬 ㅠ
-
-        // 프래그먼트 사용을 위해
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        switch (frament_no){
-            case 1:
-                // '프래그먼트1' 호출
-                Fragment1 fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
-                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함
-                transaction.commit();  // 있어야함 위치확정
-                break;
-
-            case 2:
-                // '프래그먼트2' 호출
-                Fragment2 fragment2 = new Fragment2();
-                transaction.replace(R.id.fragment_container, fragment2);
-                transaction.commit();
-                break;
-
-            case 3:
-                // '프래그먼트3' 호출
-                Fragment3 fragment3 = new Fragment3();
-                transaction.replace(R.id.fragment_container, fragment3);
-                transaction.commit();
-                break;
-
-            case 4:
-                // '프래그먼트4' 호출
-                Fragment4 fragment4 = new Fragment4();
-                transaction.replace(R.id.fragment_container, fragment4);
-                transaction.commit();
-                break;
-        }
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
-        int id = item.getItemId();
-        if (id == R.id.actionbar) {
-
-                if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
-                    Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-                }
-
-            if (!mBluetoothAdapter.isEnabled()) { //isEnabled()호출해서 현재 블루투스가 활성화되있는지
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT) ; //블루투스를 활성화시키려면 ACTION_REQUEST_ENABLE 인텐트로 startActivityForResult()를 호출
-            }else
-            {
-                Intent serverIntent = new Intent(this, DeviceListActivity.class); //디바이스 찾는 인텐드
-                startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-                Toast.makeText(this, "connect", Toast.LENGTH_SHORT).show();
-                return true;
-            }//꺼져있을경우 블루투스 켜주는 메소드(창 띄어서 켤지말지 결정함)
-
-
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-        /*
-    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothadapter == null) {
-         //장치가 블루투스를 지원하지 않는 경우.
-        }else {
-        // 장치가 블루투스를 지원하는 경우.
-        }
-       */
-
-    //액션바 숨기기
-    private void hideActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
-            actionBar.hide();
-    }
-
-    private void ensureDiscoverable() {
-        if (mBluetoothAdapter.getScanMode() !=
-                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
-        }
-    }
-
-    /**
-     * Establish connection with other device
-     *
-     * @param data   An {@link Intent} with {@link DeviceListActivity#EXTRA_DEVICE_ADDRESS} extra.
-     * @param secure Socket Security type - Secure (true) , Insecure (false)
-     */
-    private void connectDevice(Intent data, boolean secure) { //상대방 블루투스 주소받아와서
-        // Get the device MAC address
-        String address = data.getExtras()
-                .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        // Get the BluetoothDevice object
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-        // Attempt to connect to the device
-        mChatService.connect(device, secure);
     }
 
 }
