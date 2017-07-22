@@ -15,12 +15,12 @@ public class RegisterID extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_id);
 
-        /*
-        Spinner question = (Spinner) findViewById(R.id.txt_question_type);
+
+        Spinner question = (Spinner) findViewById(R.id.txt_question_type2);
         ArrayAdapter questionA = ArrayAdapter.createFromResource(this, R.array.question, android.R.layout.simple_spinner_item);
         questionA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         question.setAdapter(questionA);
-        */
+
         Button submit = (Button)findViewById(R.id.btn_submit);
 
         submit.setOnClickListener(new View.OnClickListener() {

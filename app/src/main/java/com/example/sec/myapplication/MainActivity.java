@@ -39,16 +39,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+
+
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
     private final int FRAGMENT3 = 3;
     private final int FRAGMENT4 = 4;
 
-
-
     private Button btn_1, btn_2, btn_3, btn_4;
 
-    private Button btn_on;
+
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
     private BluetoothChatService mChatService = null;
 
@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
+
+
 
         //액션바 설정하는거//
         getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
@@ -200,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 Intent serverIntent = new Intent(this, DeviceListActivity.class); //디바이스 찾는 인텐드
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-                Toast.makeText(this, " Hi", Toast.LENGTH_SHORT).show();
+
                 return true;
             }
             return true;
@@ -222,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //핸들러가 UI바꾸는거 돠주는거
-    private final Handler mHandler = new Handler() {
+    public final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             FragmentActivity activity = MainActivity.this;
@@ -248,11 +250,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     byte[] readBuf = (byte[]) msg.obj; //byte한글자 ,버퍼가 문자
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
-                    //여기서 오류 자주남
+                    //here is error
                     Log.v("readMessage : ", readMessage);
                     Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+
+                    //Fragment1 fragment1 = new Fragment1();   //frgment1 repeatly declare
+                    //fragment1.text_input.setText(readMessage.toString());
+
                     //text_input.setText(mOutEditText.getText());
-                   // text_input.setText(readMessage.toString());
+                    // text_input.setText(readMessage.toString());
+                    // text_input.setText("2344");  //이것도안됨  i thank that we have to take readMessage value(this is received data) from mainActivity into fragment1
                     break;// ----------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
@@ -262,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(activity, "Connected to "
                                 + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                     }
-                    break;
+                break;
                 case Constants.MESSAGE_TOAST:
                     if (null != activity) {
                         Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
