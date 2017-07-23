@@ -20,25 +20,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-<<<<<<< HEAD
 import com.example.sec.myapplication.Fragment.Fragment1;
 import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
-=======
 import com.github.mikephil.charting.data.BarEntry;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
->>>>>>> master
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
@@ -47,9 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
-    private Button btn_on;
 
-<<<<<<< HEAD
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
     private BluetoothChatService mChatService = null;
 
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+    public TextView text_input;
 
     /**
      * Name of the connected device
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Array adapter for the conversation thread
      */
-    private ArrayAdapter<String> mConversationArrayAdapter;
+    private ArrayAdapter<String> mConversationArrayAdapter; //<string>을 <comment>로 바꿈
     /**
      * String buffer for outgoing messages
      */
@@ -77,13 +77,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Local Bluetooth adapter
      */
 
-=======
->>>>>>> master
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
+
+
 
         //액션바 설정하는거//
         getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
@@ -102,12 +101,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
         btn_4 = (Button)findViewById(R.id.btn_4);
+        text_input = (TextView)findViewById(R.id.text_input) ;
 
         // 탭 버튼에 대한 리스너 연결
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
         btn_4.setOnClickListener(this);
+
+
 
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
         callFragment(FRAGMENT1);
@@ -140,81 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // '버튼2' 클릭 시 '프래그먼트3' 호출
                 callFragment(FRAGMENT4);
                 break;
-        }
-    }
-//핸들러가 UI바꾸는거 돠주는거
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            FragmentActivity activity = MainActivity.this;
-            switch (msg.what) {
-                case Constants.MESSAGE_STATE_CHANGE:
-                    switch (msg.arg1) {
-                        case BluetoothChatService.STATE_CONNECTED:
-                            break;
-                        case BluetoothChatService.STATE_CONNECTING:
-                            break;
-                        case BluetoothChatService.STATE_LISTEN:
-                        case BluetoothChatService.STATE_NONE:
-                            break;
-                    }
-                    break;
-                case Constants.MESSAGE_WRITE:
-                    byte[] writeBuf = (byte[]) msg.obj;
-                    // construct a string from the buffer
-                    String writeMessage = new String(writeBuf);
-                    mConversationArrayAdapter.add("Me:  " + writeMessage);
-                    break;
-                case Constants.MESSAGE_READ://핸들러로와서 메세지 받을경우에 일로와서 이거실행
-                    byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
-                    String readMessage = new String(readBuf, 0, msg.arg1);
-                    mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
-                    break;
-                case Constants.MESSAGE_DEVICE_NAME:
-                    // save the connected device's name
-                    mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
-                    if (null != activity) {
-                        Toast.makeText(activity, "Connected to "
-                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case Constants.MESSAGE_TOAST:
-                    if (null != activity) {
-                        Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-            }
-        }
-    };
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) { //
-        switch (requestCode) {
-            case REQUEST_CONNECT_DEVICE_SECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK) {
-                    connectDevice(data, true);
-                }
-                break;
-            case REQUEST_CONNECT_DEVICE_INSECURE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == Activity.RESULT_OK) {
-                    connectDevice(data, false);
-                }
-                break;
-            case REQUEST_ENABLE_BT:
-                // When the request to enable Bluetooth returns
-                if (resultCode == Activity.RESULT_OK) {
-                    // Bluetooth is now enabled, so set up a chat session
-                    mChatService = new BluetoothChatService(this, mHandler);
-                } else {
-                    // User did not enable Bluetooth or an error occurred
-                    Log.d("Main", "BT not enabled");
-                    Toast.makeText(this, R.string.bt_not_enabled_leaving,
-                            Toast.LENGTH_SHORT).show();
-                    this.finish();
-                }
         }
     }
 
@@ -252,9 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 transaction.commit();
                 break;
         }
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
@@ -266,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
         int id = item.getItemId();
         if (id == R.id.actionbar) {
-
                 if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
                     Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
                 }
@@ -278,41 +202,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 Intent serverIntent = new Intent(this, DeviceListActivity.class); //디바이스 찾는 인텐드
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-                Toast.makeText(this, "connect", Toast.LENGTH_SHORT).show();
+
                 return true;
-            }//꺼져있을경우 블루투스 켜주는 메소드(창 띄어서 켤지말지 결정함)
-
-
+            }
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
-    }
-
-        /*
-    BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothadapter == null) {
-         //장치가 블루투스를 지원하지 않는 경우.
-        }else {
-        // 장치가 블루투스를 지원하는 경우.
-        }
-       */
-
-    //액션바 숨기기
-    private void hideActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
-            actionBar.hide();
-    }
-
-    private void ensureDiscoverable() {
-        if (mBluetoothAdapter.getScanMode() !=
-                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
-        }
     }
 
     /**
@@ -323,12 +218,95 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void connectDevice(Intent data, boolean secure) { //상대방 블루투스 주소받아와서
         // Get the device MAC address
-        String address = data.getExtras()
-                .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-        // Get the BluetoothDevice object
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-        // Attempt to connect to the device
+        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS); // Get the BluetoothDevice object
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address); // Attempt to connect to the device
         mChatService.connect(device, secure);
+    }
+
+    //핸들러가 UI바꾸는거 돠주는거
+    public final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            FragmentActivity activity = MainActivity.this;
+            switch (msg.what) {
+                case Constants.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothChatService.STATE_CONNECTED:
+                            break;
+                        case BluetoothChatService.STATE_CONNECTING:
+                            break;
+                        case BluetoothChatService.STATE_LISTEN:
+                        case BluetoothChatService.STATE_NONE:
+                            break;
+                    }
+                    break;
+                /*case Constants.MESSAGE_WRITE:
+                    byte[] writeBuf = (byte[]) msg.obj;
+                    // construct a string from the buffer
+                    String writeMessage = new String(writeBuf);
+                    mConversationArrayAdapter.add("Me:  " + writeMessage);
+                    break; */
+                case Constants.MESSAGE_READ://핸들러로와서 메세지 받을경우에 일로와서 이거실행
+                    byte[] readBuf = (byte[]) msg.obj; //byte한글자 ,버퍼가 문자
+                    // construct a string from the valid bytes in the buffer
+                    String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
+                    //here is error
+                    Log.v("readMessage : ", readMessage);
+                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+
+                    //Fragment1 fragment1 = new Fragment1();   //frgment1 repeatly declare
+                    //fragment1.text_input.setText(readMessage.toString());
+
+                    //text_input.setText(mOutEditText.getText());
+                    // text_input.setText(readMessage.toString());
+                    // text_input.setText("2344");  //이것도안됨  i thank that we have to take readMessage value(this is received data) from mainActivity into fragment1
+                    break;// ----------------------------------------------------------------------------------------------------
+
+                case Constants.MESSAGE_DEVICE_NAME:
+                    // save the connected device's name
+                    mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
+                    if (null != activity) {
+                        Toast.makeText(activity, "Connected to "
+                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                    }
+                break;
+                case Constants.MESSAGE_TOAST:
+                    if (null != activity) {
+                        Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+    };
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { //
+        switch (requestCode) {
+            case REQUEST_CONNECT_DEVICE_SECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, true);
+                }
+                break;
+            case REQUEST_CONNECT_DEVICE_INSECURE:
+                // When DeviceListActivity returns with a device to connect
+                if (resultCode == Activity.RESULT_OK) {
+                    connectDevice(data, false);
+                }
+                break;
+            case REQUEST_ENABLE_BT:
+                // When the request to enable Bluetooth returns
+                if (resultCode == Activity.RESULT_OK) {
+                    // Bluetooth is now enabled, so set up a chat session
+                    mChatService = new BluetoothChatService(this, mHandler);
+                } else {
+                    // User did not enable Bluetooth or an error occurred
+                    Log.d("Main", "BT not enabled");
+                    Toast.makeText(this, R.string.bt_not_enabled_leaving,
+                            Toast.LENGTH_SHORT).show();
+                    this.finish();
+                }
+        }
     }
 
 }
