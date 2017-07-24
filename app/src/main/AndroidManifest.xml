@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sec.myapplication">
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
 
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -13,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDEOhRs3vpq6eKceVUarB4ojviXpSgmj1A" />
@@ -28,10 +27,11 @@
         </activity>
         <activity android:name=".RegisterID" />
         <activity android:name=".Find" />
-        <activity android:name=".Findid"></activity>
-        <activity android:name=".DeviceListActivity"
-            android:theme="@android:style/Theme.DeviceDefault.Dialog"/>
-
+        <activity android:name=".Findid" />
+        <activity
+            android:name=".DeviceListActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Dialog" />
+        <activity android:name=".Findpasswd"></activity>
     </application>
 
 </manifest>

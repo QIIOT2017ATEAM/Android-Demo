@@ -8,48 +8,129 @@
     tools:context="com.example.sec.myapplication.MainActivity">
 
 
-    <LinearLayout
+    <TabHost
+        android:id="@+id/tabHost1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_light"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btnfindid"
-            android:layout_gravity="center"
-            android:layout_marginTop="160dp"
-            android:text="Find"
-            android:textAlignment="center"
-            android:textSize="13pt" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_findid"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-            android:layout_width="match_parent"
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_findpw"
-            android:layout_marginTop="51dp"
-            android:text="ID"
-            android:textSize="18sp" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_findpw"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/btn_findid"
-            android:layout_marginTop="10dp"
-            android:text="PW"
-            android:textSize="18sp" />
+                <LinearLayout
+                    android:id="@+id/ID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/textView6"
+                        android:layout_marginBottom="40dp"
+                        android:layout_weight="1"
+                        android:hint="Name"
+                        android:inputType="textPersonName" />
 
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:text=" Quetsion"
+                            android:textSize="7pt" />
+
+                        <Spinner
+                            android:id="@+id/txt_question_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"></Spinner>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/editText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:hint="Answer"
+                        android:inputType="textPersonName" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="SUBMIT" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/PASSWORD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/editText10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="textPersonName"
+                            android:hint="ID (e-mail)"
+                            android:layout_marginBottom="30dp" />
+
+                        <Button
+                            android:id="@+id/btn_check"
+                            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="CHECK" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_send"
+                        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:text="SEND" />
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 
 </LinearLayout>

@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-<<<<<<< HEAD:app/src/main/java/com/example/sec/myapplication/Fragment3.java
-=======
+
 import com.example.sec.myapplication.R;
->>>>>>> master:app/src/main/java/com/example/sec/myapplication/Fragment/Fragment3.java
 
 /**
  * A simple {@link Fragment} subclass.

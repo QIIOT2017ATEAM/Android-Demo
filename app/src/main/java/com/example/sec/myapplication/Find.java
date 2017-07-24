@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TabHost;
 
 public class Find extends AppCompatActivity {
 
@@ -13,14 +14,17 @@ public class Find extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find);
 
-        Button findid = (Button)findViewById(R.id.btn_findid);
+        TabHost tabHost1 = (TabHost) findViewById(R.id.tabHost1);
+        tabHost1.setup();
 
-        findid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent findid = new Intent(Find.this, Findid.class); //일단 지금은 findid 누르면 Login으로 가게했는데 나중에 조건문써서 설정하면될듯
-                startActivity(findid);
-            }
-        });
+        TabHost.TabSpec ts1 = tabHost1.newTabSpec("Tab Spec 1") ;
+        ts1.setContent(R.id.ID) ;
+        ts1.setIndicator("ID") ;
+        tabHost1.addTab(ts1)  ;
+
+       TabHost.TabSpec ts2 = tabHost1.newTabSpec("Tab Spec 2") ;
+        ts2.setContent(R.id.PASSWORD) ;
+        ts2.setIndicator("PASSWORD") ;
+        tabHost1.addTab(ts2) ;
     }
 }
