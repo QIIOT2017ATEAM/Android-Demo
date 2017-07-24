@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    Fragment1 main;// Fragment Instance 변수 생성
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
 
-
-
+        main = new Fragment1(); //객체가 생성 - Fragment1의 변수와 메소드를 사용가능
         //액션바 설정하는거//
         getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999)); //액션바 배경색 변경
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
         btn_4 = (Button)findViewById(R.id.btn_4);
-        text_input = (TextView)findViewById(R.id.text_input) ;
+        text_input = (TextView)findViewById(R.id.text_input) ; //---------------------------------------------이거 프레그먼트에 있ㅇ니깐 이거한번지워보자
 
         // 탭 버튼에 대한 리스너 연결
         btn_1.setOnClickListener(this);
@@ -253,8 +252,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //here is error
                     Log.v("readMessage : ", readMessage);
                     Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+                    main.setvalue(readMessage);
 
                     //Fragment1 fragment1 = new Fragment1();   //frgment1 repeatly declare
+                    //Bundle bundle = new Bundle();
+                    //bundle.putString("String",readMessage);
+                    //fragment1.setArguments(bundle);
+
                     //fragment1.text_input.setText(readMessage.toString());
 
                     //text_input.setText(mOutEditText.getText());
