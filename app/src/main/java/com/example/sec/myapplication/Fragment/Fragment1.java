@@ -19,11 +19,12 @@ import com.github.mikephil.charting.charts.LineChart;
 public class Fragment1 extends Fragment {
 
     public View view;
-    TextView text_input = (TextView) view.findViewById(R.id.text_input);
+    TextView text_input;
 
     public Fragment1() {
         // Required empty public constructor
     }
+
     public void setvalue(String read){
         if(text_input != null)
             text_input.setText(read);
@@ -35,6 +36,8 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment1,container, false);
+
+         text_input = (TextView) view.findViewById(R.id.text_input);
 
         //text_input.setText(getNumber().toString());
         // text_input.setText(readMessage.toString());

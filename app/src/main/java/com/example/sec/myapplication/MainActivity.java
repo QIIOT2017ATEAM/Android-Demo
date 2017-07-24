@@ -31,15 +31,11 @@ import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
 import com.github.mikephil.charting.data.BarEntry;
-
 import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    Fragment1 main;// Fragment Instance 변수 생성
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
@@ -47,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int FRAGMENT4 = 4;
 
     private Button btn_1, btn_2, btn_3, btn_4;
+
+    Fragment1 fragment1;
 
 
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
-    public TextView text_input;
+
 
     /**
      * Name of the connected device
@@ -82,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
 
-        main = new Fragment1(); //객체가 생성 - Fragment1의 변수와 메소드를 사용가능
+        fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
+
+
         //액션바 설정하는거//
         getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999)); //액션바 배경색 변경
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
         btn_4 = (Button)findViewById(R.id.btn_4);
-        text_input = (TextView)findViewById(R.id.text_input) ; //---------------------------------------------이거 프레그먼트에 있ㅇ니깐 이거한번지워보자
+
 
         // 탭 버튼에 대한 리스너 연결
         btn_1.setOnClickListener(this);
@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_4.setOnClickListener(this);
 
 
-
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
         callFragment(FRAGMENT1);
+
 
         /*   btn_1.setOnClickListener(new View.OnClickListener() {  //setOnClickListener 는 버튼을 클릭시 이벤트발생, View.OnClickListener()는 화면을 불러오고 아래에서 함수설정
         //      @Override
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_1 :
                 // '버튼1' 클릭 시 '프래그먼트1' 호출
                 callFragment(FRAGMENT1);
-                break;
+            break;
 
             case R.id.btn_2 :
                 // '버튼2' 클릭 시 '프래그먼트2' 호출
@@ -151,8 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (frament_no){
             case 1:
-                // '프래그먼트1' 호출
-                Fragment1 fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
+                //Fragment2 fragment2
                 transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함
                 transaction.commit();  // 있어야함 위치확정
                 break;
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
@@ -222,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mChatService.connect(device, secure);
     }
 
-    //핸들러가 UI바꾸는거 돠주는거
+    //Handler does changing UI
     public final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -252,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //here is error
                     Log.v("readMessage : ", readMessage);
                     Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
-                    main.setvalue(readMessage);
+                    fragment1.setvalue(readMessage);
 
                     //Fragment1 fragment1 = new Fragment1();   //frgment1 repeatly declare
                     //Bundle bundle = new Bundle();
@@ -260,10 +259,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //fragment1.setArguments(bundle);
 
                     //fragment1.text_input.setText(readMessage.toString());
-
                     //text_input.setText(mOutEditText.getText());
                     // text_input.setText(readMessage.toString());
-                    // text_input.setText("2344");  //이것도안됨  i thank that we have to take readMessage value(this is received data) from mainActivity into fragment1
+
                     break;// ----------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
