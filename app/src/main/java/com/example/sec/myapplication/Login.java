@@ -36,11 +36,10 @@ public class Login extends AppCompatActivity {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent find = new Intent(Login.this, Find.class);
+                Intent find = new Intent(Login.this, Findpasswd.class);
                 startActivity(find);
             }
         });
-//으ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ피고낳ㅁ
 
     }
 }
