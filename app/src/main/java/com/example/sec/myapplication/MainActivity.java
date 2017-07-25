@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
-    Fragment1 fragment1;
+    Fragment1 fragment1; //인스턴스변수이름ㅅㄴ언
 
 
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
@@ -151,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (frament_no){
             case 1:
-                //Fragment2 fragment2
-                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함
+                //Fragment1 fragment1
+                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함, 화면전환, 리플레이쓰면 프레그먼트정보 없어짐. 생명주기 사망
                 transaction.commit();  // 있어야함 위치확정
                 break;
 
