@@ -28,8 +28,7 @@
 
 
         <activity android:name=".RegisterID" />
-        <activity android:name=".Find" />
-        <activity android:name=".Findid" />
+
         <activity
             android:name=".Bluetooth.DeviceListActivity"
             android:theme="@android:style/Theme.DeviceDefault.Dialog" />

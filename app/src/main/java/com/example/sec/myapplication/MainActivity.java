@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mChatService = new BluetoothChatService(this, mHandler);
 
-                // 위젯에 대한 참조
+        // 위젯에 대한 참조
         btn_1 = (Button)findViewById(R.id.btn_1);
         btn_2 = (Button)findViewById(R.id.btn_2);
         btn_3 = (Button)findViewById(R.id.btn_3);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_1 :
                 // '버튼1' 클릭 시 '프래그먼트1' 호출
                 callFragment(FRAGMENT1);
-            break;
+                break;
 
             case R.id.btn_2 :
                 // '버튼2' 클릭 시 '프래그먼트2' 호출
@@ -226,15 +226,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {   //액션버튼 메뉴 액션바에 집어 넣기, 0이 flase 1일때 true
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-}
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){ //------------------------------------------------------------------------액션바 이벤트임 눌렀을떄 실행되느
         int id = item.getItemId();
         if (id == R.id.bluetooth) {
-                if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
-                    Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-                }
+            if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
+                Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            }
 
             if (!mBluetoothAdapter.isEnabled()) { //isEnabled()호출해서 현재 블루투스가 활성화되있는지
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(activity, "Connected to "
                                 + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                     }
-                break;
+                    break;
                 case Constants.MESSAGE_TOAST:
                     if (null != activity) {
                         Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
