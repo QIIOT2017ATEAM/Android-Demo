@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+
+    android.app.FragmentManager transaction = getFragmentManager();
 
 
 
@@ -148,28 +151,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void callFragment(int frament_no){ //이게 프레그먼트 부르는 함수같은데 해석 잘 못하겠듬 ㅠ
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //take FragmentRransaction form FragmentManager //이동을위해
+        //FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //take FragmentRransaction form FragmentManager //이동을위해
+
 
         switch (frament_no){
             case 1:
-                transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함, 화면전환, 리플레이쓰면 프레그먼트정보 없어짐. 생명주기 사망
-                transaction.commit();  // after modify, commit() is must written
+                if(transaction.findFragmentByTag("a") != null){ //a란놈이 있으면 보여주고(fragment1), 없으면 else로 없으면 추가(맨첨을 위해서)
+                    transaction.beginTransaction().show(transaction.findFragmentByTag("a")).commit();
+                }else {
+                    transaction.beginTransaction().add(R.id.fragment_container, fragment1, "a").commit(); //fragment1을 findFragmentByTag("a")하면 찾아지게 선언
+                }
+                if(transaction.findFragmentByTag("b") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("b")).commit();
+                if(transaction.findFragmentByTag("c") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("c")).commit();
+                if(transaction.findFragmentByTag("d") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("d")).commit();
+                //transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함, 화면전환, 리플레이쓰면 프레그먼트정보 없어짐. 생명주기 사망, 그래서 위에꺼쓰는중
+                //transaction.commit();  // after modify, commit() is must written
                 break;
 
             case 2:
-                transaction.replace(R.id.fragment_container, fragment2);// '프래그먼트2' 호출
-                transaction.commit();
+                if(transaction.findFragmentByTag("b") != null){
+                    transaction.beginTransaction().show(transaction.findFragmentByTag("b")).commit();
+                }else {
+                    transaction.beginTransaction().add(R.id.fragment_container, fragment2, "b").commit();
+                }
+                if(transaction.findFragmentByTag("a") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("a")).commit();
+                if(transaction.findFragmentByTag("c") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("c")).commit();
+                if(transaction.findFragmentByTag("d") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("d")).commit();
+                //transaction.replace(R.id.fragment_container, fragment2);
+                //transaction.commit();
                 break;
 
             case 3:
-                transaction.replace(R.id.fragment_container, fragment3); // '프래그먼트3' 호출
-                transaction.commit();
+                if(transaction.findFragmentByTag("c") != null){
+                    transaction.beginTransaction().show(transaction.findFragmentByTag("c")).commit();
+                }else {
+                    transaction.beginTransaction().add(R.id.fragment_container, fragment3, "c").commit();
+                }
+                if(transaction.findFragmentByTag("a") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("a")).commit();
+                if(transaction.findFragmentByTag("b") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("b")).commit();
+                if(transaction.findFragmentByTag("d") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("d")).commit();
+                //transaction.replace(R.id.fragment_container, fragment3);
+                //transaction.commit();
                 break;
 
             case 4:
                 //Fragment4 fragment4 = new Fragment4();
-                transaction.replace(R.id.fragment_container, fragment4);
-                transaction.commit();
+                if(transaction.findFragmentByTag("d") != null){
+                    transaction.beginTransaction().show(transaction.findFragmentByTag("d")).commit();
+                }else {
+                    transaction.beginTransaction().add(R.id.fragment_container, fragment4, "d").commit();
+                }
+                if(transaction.findFragmentByTag("a") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("a")).commit();
+                if(transaction.findFragmentByTag("b") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("b")).commit();
+                if(transaction.findFragmentByTag("c") != null)
+                    transaction.beginTransaction().hide(transaction.findFragmentByTag("c")).commit();
+                //transaction.replace(R.id.fragment_container, fragment4);
+                //transaction.commit();
                 break;
         }
     }
