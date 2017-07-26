@@ -17,19 +17,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDEOhRs3vpq6eKceVUarB4ojviXpSgmj1A" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Login">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login"/>
+
+
         <activity android:name=".RegisterID" />
         <activity android:name=".Find" />
         <activity android:name=".Findid" />
         <activity
-            android:name=".DeviceListActivity"
+            android:name=".Bluetooth.DeviceListActivity"
             android:theme="@android:style/Theme.DeviceDefault.Dialog" />
         <activity android:name=".Findpasswd"></activity>
     </application>

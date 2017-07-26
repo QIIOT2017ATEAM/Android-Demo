@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.sec.myapplication;
+package com.example.sec.myapplication.Bluetooth;
 
 /**
  * Defines several constants used between {@link BluetoothChatService} and the UI.

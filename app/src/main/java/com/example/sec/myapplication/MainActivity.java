@@ -4,8 +4,6 @@ package com.example.sec.myapplication;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -14,25 +12,23 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.sec.myapplication.Bluetooth.BluetoothChatService;
+import com.example.sec.myapplication.Bluetooth.Constants;
+import com.example.sec.myapplication.Bluetooth.DeviceListActivity;
 import com.example.sec.myapplication.Fragment.Fragment1;
 import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
-import com.github.mikephil.charting.data.BarEntry;
-import org.w3c.dom.Comment;
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,7 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
-    Fragment1 fragment1; //인스턴스변수이름ㅅㄴ언
+    Fragment1 fragment1;
+    Fragment2 fragment2;
+    Fragment3 fragment3;
+    Fragment4 fragment4;//인스턴스변수이름ㅅㄴ언
 
 
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
@@ -57,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mConversationView;
     private EditText mOutEditText;
     private Button mSendButton;
+
 
 
     /**
@@ -76,11 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //이 액티비티가 다시실행될떄마다 초기화
         super.onCreate(savedInstanceState); //필요함
         setContentView(R.layout.activity_main);
 
         fragment1 = new Fragment1();  //프래그먼트1을 여기서 선언
+        fragment2 = new Fragment2();
+        fragment3 = new Fragment3();
+        fragment4 = new Fragment4();
 
 
         //액션바 설정하는거//
@@ -93,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();//내 기기 블루투스 상태 아는놈, 정적메소드 getDefaultAdapter 호출하여 객체생성
 
         mChatService = new BluetoothChatService(this, mHandler);
-
 
                 // 위젯에 대한 참조
         btn_1 = (Button)findViewById(R.id.btn_1);
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
-        callFragment(FRAGMENT1);
+        callFragment(FRAGMENT2);
 
 
         /*   btn_1.setOnClickListener(new View.OnClickListener() {  //setOnClickListener 는 버튼을 클릭시 이벤트발생, View.OnClickListener()는 화면을 불러오고 아래에서 함수설정
@@ -146,33 +148,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void callFragment(int frament_no){ //이게 프레그먼트 부르는 함수같은데 해석 잘 못하겠듬 ㅠ
 
-        // 프래그먼트 사용을 위해
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); //take FragmentRransaction form FragmentManager //이동을위해
 
         switch (frament_no){
             case 1:
-                //Fragment1 fragment1
                 transaction.replace(R.id.fragment_container, fragment1); //위치 있어야함, 화면전환, 리플레이쓰면 프레그먼트정보 없어짐. 생명주기 사망
-                transaction.commit();  // 있어야함 위치확정
+                transaction.commit();  // after modify, commit() is must written
                 break;
 
             case 2:
-                // '프래그먼트2' 호출
-                Fragment2 fragment2 = new Fragment2();
-                transaction.replace(R.id.fragment_container, fragment2);
+                transaction.replace(R.id.fragment_container, fragment2);// '프래그먼트2' 호출
                 transaction.commit();
                 break;
 
             case 3:
-                // '프래그먼트3' 호출
-                Fragment3 fragment3 = new Fragment3();
-                transaction.replace(R.id.fragment_container, fragment3);
+                transaction.replace(R.id.fragment_container, fragment3); // '프래그먼트3' 호출
                 transaction.commit();
                 break;
 
             case 4:
-                // '프래그먼트4' 호출
-                Fragment4 fragment4 = new Fragment4();
+                //Fragment4 fragment4 = new Fragment4();
                 transaction.replace(R.id.fragment_container, fragment4);
                 transaction.commit();
                 break;
@@ -186,9 +181,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){ //액션바 이벤트임 눌렀을떄 실행되느
+    public boolean onOptionsItemSelected(MenuItem item){ //------------------------------------------------------------------------액션바 이벤트임 눌렀을떄 실행되느
         int id = item.getItemId();
-        if (id == R.id.actionbar) {
+        if (id == R.id.bluetooth) {
                 if (mBluetoothAdapter == null) { //블루투스 지원못하면 이창이 뜬다.
                     Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
                 }
@@ -205,9 +200,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return true;
         }
+        else
+        {
+            Intent gologin = new Intent(MainActivity.this, Login.class); //요고는 새로운 인텐트 생성시키는거 ㅇㅋㅇㅋ 이 엑티비티에서 딴데로 넘어간다고 설정
+            startActivity(gologin);
+        }
         return super.onOptionsItemSelected(item);
     }
-
+// -----------------------------------------------------------------------------------------------------------------------------------------------------
     /**
      * Establish connection with other device
      *
@@ -253,16 +253,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
                     fragment1.setvalue(readMessage);
 
-                    //Fragment1 fragment1 = new Fragment1();   //frgment1 repeatly declare
-                    //Bundle bundle = new Bundle();
-                    //bundle.putString("String",readMessage);
-                    //fragment1.setArguments(bundle);
 
-                    //fragment1.text_input.setText(readMessage.toString());
-                    //text_input.setText(mOutEditText.getText());
-                    // text_input.setText(readMessage.toString());
-
-                    break;// ----------------------------------------------------------------------------------------------------
+                    break; // ----------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -310,5 +302,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
         }
     }
+
+//------------------------------------------------------------------------------------------Bluetooth
+
+
+
 
 }

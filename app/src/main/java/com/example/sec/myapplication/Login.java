@@ -20,8 +20,10 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish(); //로그인 한번 성공하면 끝
                 Intent login = new Intent(Login.this, MainActivity.class); //요고는 새로운 인텐트 생성시키는거 ㅇㅋㅇㅋ 이 엑티비티에서 딴데로 넘어간다고 설정
-                startActivity(login); // 얘가 액티비티 실행시키는거 있어야함꼭
+                startActivity(login);
+                // 얘가 액티비티 실행시키는거 있어야함꼭
             }
         });
 
