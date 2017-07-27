@@ -30,7 +30,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -48,13 +47,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-=======
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> master
 
 
 import com.example.sec.myapplication.R;
@@ -118,20 +115,6 @@ public class Fragment3 extends Fragment
         super.onCreate(savedInstanceState);
     }
 
-<<<<<<< HEAD
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        // View view = inflater.inflate(R.layout.fragment3, container, false);
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment3, container, false);
-        //return view
-    }
-
-
-
-    }
-=======
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate
@@ -432,7 +415,7 @@ public class Fragment3 extends Fragment
     @TargetApi(Build.VERSION_CODES.M)
     private void showDialogForPermission(String msg) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity.getActivity()); //getACtivity는 this개념
         builder.setTitle("알림");
         builder.setMessage(msg);
         builder.setCancelable(false);
@@ -531,5 +514,3 @@ public class Fragment3 extends Fragment
 }
 
 
-
->>>>>>> master

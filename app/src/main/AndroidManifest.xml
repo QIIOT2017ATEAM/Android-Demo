@@ -21,13 +21,9 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-<<<<<<< HEAD
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="﻿AIzaSyB7aQXSYJzzDE60X4eDSI69HKcCcAfax3Y"/>
-=======
+
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCsNKlCagvjeOcNOkewRFGO9oOVs9c7a24" />
->>>>>>> master
 
         <activity android:name=".MainActivity" >
             <intent-filter>
@@ -40,10 +36,7 @@
 
 
         <activity android:name=".RegisterID" />
-<<<<<<< HEAD
-=======
 
->>>>>>> master
         <activity
             android:name=".Bluetooth.DeviceListActivity"
             android:theme="@android:style/Theme.DeviceDefault.Dialog" />
