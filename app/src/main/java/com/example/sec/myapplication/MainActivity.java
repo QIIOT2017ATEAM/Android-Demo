@@ -23,6 +23,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 import com.example.sec.myapplication.Bluetooth.BluetoothChatService;
 import com.example.sec.myapplication.Bluetooth.Constants;
 import com.example.sec.myapplication.Bluetooth.DeviceListActivity;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Fragment2 fragment2;
     Fragment3 fragment3;
     Fragment4 fragment4;//인스턴스변수이름ㅅㄴ언
+    //객체는 클래스의 타입으로 선언되었을 때를 의미하는 것이고, 그 객체가 메모리에 할당되어 실제 사용될 때를 인스턴스
+
 
 
     private BluetoothAdapter mBluetoothAdapter = null; //안드로이드는 블루투스와 연결하기위해 BluetoothAdapter클래스 제공함
@@ -157,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (frament_no){
             case 1:
                 if(transaction.findFragmentByTag("a") != null){ //a란놈이 있으면 보여주고(fragment1), 없으면 else로 없으면 추가(맨첨을 위해서)
-                    transaction.beginTransaction().show(transaction.findFragmentByTag("a")).commit();
+                    transaction.beginTransaction().show(transaction.findFragmentByTag("a")).commit(); //transaction은 fragmentmanager의 객체
                 }else {
                     transaction.beginTransaction().add(R.id.fragment_container, fragment1, "a").commit(); //fragment1을 findFragmentByTag("a")하면 찾아지게 선언
                 }
@@ -246,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 return true;
             }
-            return true;
+            return true; //이 return은 뭔가 왜 true임? 바로꺼지는게 이문제인가
         }
         else
         {
@@ -269,12 +272,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mChatService.connect(device, secure);
     }
 
+
     //Handler does changing UI
     public final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             FragmentActivity activity = MainActivity.this;
-            switch (msg.what) {
+            switch (msg.what) { //핸들러 메세지보낼떄 번호를 what으로 어떤핸들러선택할지 구분
+
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
@@ -352,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 //------------------------------------------------------------------------------------------Bluetooth
+
 
 
 
