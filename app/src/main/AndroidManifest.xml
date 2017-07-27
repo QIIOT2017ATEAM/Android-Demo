@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -15,7 +16,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDEOhRs3vpq6eKceVUarB4ojviXpSgmj1A" />
+            android:value="AIzaSyCsNKlCagvjeOcNOkewRFGO9oOVs9c7a24" />
 
         <activity android:name=".MainActivity" >
             <intent-filter>
