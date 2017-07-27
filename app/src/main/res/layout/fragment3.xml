@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sec.myapplication.Fragment.Fragment3">
+    tools:context="com.example.sec.myapplication.MainActivity">
 
     <!-- TODO: Update blank fragment layout -->
-
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="250dp"/>
 
 
@@ -18,3 +18,8 @@
     <!-- Activity에서는 fragment로 구현해야되지만 Fragment로 구현하기위해서는 MapView를 사용해야함-->
 
 
+=======
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"/>
+</FrameLayout>
+>>>>>>> master
