@@ -23,8 +23,9 @@
         <meta-data
 
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCsNKlCagvjeOcNOkewRFGO9oOVs9c7a24" />
-
+            android:value="AIzaSyDDvLWkNdrKRYD5woPkGL_4g3_Agufqa8w"
+            />
+        <service android:name="com.example.sec.myapplication.Heart.PolarBleService" android:enabled="true"/>
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
