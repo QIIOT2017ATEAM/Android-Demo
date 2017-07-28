@@ -39,6 +39,9 @@ import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
 import com.example.sec.myapplication.Heart.PolarBleService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -324,14 +327,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break; */
                 case Constants.MESSAGE_READ://핸들러로와서 메세지 받을경우에 일로와서 이거실행
                     byte[] readBuf = (byte[]) msg.obj; //byte한글자 ,버퍼가 문자
-                    // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
-                    //here is error
-                    Log.v("readMessage : ", readMessage);
-                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
-                    //fragment1.setvalue(readMessage);
+                    try { //JSONObjicet 는 무조건 try 써서 안에넣어야한다.
+                        JSONObject JsonAir = new JSONObject(readMessage);
 
-
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
                     break; // ----------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
@@ -381,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-//------------------------------------------------------------------------------------------Bluetooth
+//------------------------------------------------------------------------------------------------------------------------Bluetooth
 
     @Override
     protected void onDestroy() {
@@ -420,8 +423,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String data = intent.getStringExtra(PolarBleService.EXTRA_DATA); //교수님이 잘못보내줘서 이걸로 수정했음
                 StringTokenizer tokens = new StringTokenizer(data, ";");
                 int hr = Integer.parseInt(tokens.nextToken());
-                fragment1.setvalue(hr);
+                fragment1.setvalue(hr); // 이값을 하트비트로 출력시키는거
                 Log.w("heart", "" + hr);
+
+
                 int prrPercenteage = Integer.parseInt(tokens.nextToken());
                 int prrCount = Integer.parseInt(tokens.nextToken());
                 int rrThreshold = Integer.parseInt(tokens.nextToken());	//50%, 30%, etc.
@@ -464,7 +469,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
             }
 
-            mPolarBleService.connect("00:22:D0:9C:F9:8E", false);
+           // mPolarBleService.connect("00:22:D0:9C:F9:8E", false);
+            mPolarBleService.connect("00:22:D0:3D:2E:81", false);
         }
 
         @Override
@@ -475,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mPolarBleService = null;
         }
     };
-
+//-----------------------------------------------------------------------------------------------------------------------Heart
 
 }
 
