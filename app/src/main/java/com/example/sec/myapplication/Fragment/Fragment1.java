@@ -26,7 +26,7 @@ public class Fragment1 extends Fragment {
         // Required empty public constructor
     }
 
-    public void setvalue(int read){
+    public void setvalue(int read){ //심박수 넣어줌 여기다가
         if(text_input != null)
             text_input.setText("" + read); //인트타입 잡아넣는법
         else
