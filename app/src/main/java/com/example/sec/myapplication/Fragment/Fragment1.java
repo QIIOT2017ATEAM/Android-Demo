@@ -26,9 +26,9 @@ public class Fragment1 extends Fragment {
         // Required empty public constructor
     }
 
-    public void setvalue(String read){
+    public void setvalue(int read){
         if(text_input != null)
-            text_input.setText(read);
+            text_input.setText("" + read); //인트타입 잡아넣는법
         else
             Log.e("test","" + text_input);
     }
