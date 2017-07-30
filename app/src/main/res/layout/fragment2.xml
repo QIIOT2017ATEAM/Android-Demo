@@ -24,12 +24,16 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageView
+                <TextView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@mipmap/co" />
+                    android:text="14"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textSize="30dp"
+                    android:background="@mipmap/co" />
 
                 <ImageView
                     android:id="@+id/imageView2"

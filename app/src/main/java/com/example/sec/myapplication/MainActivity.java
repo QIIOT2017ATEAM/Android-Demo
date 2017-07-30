@@ -55,7 +55,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity      implements View.OnClickListener {
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
