@@ -70,7 +70,7 @@ public class Fragment2 extends Fragment {
         pm25textView = (TextView)view.findViewById(R.id.pm25textView);
         temtextView = (TextView)view.findViewById(R.id.temtextView);
 
-        mChart = (LineChart) view.findViewById(R.id.chart1);
+        mChart = (LineChart) view.findViewById(R.id.chart1);  //xml의 차트와 연결시켜줌
         //mChart.setOnChartGestureListener(this);
         //mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
@@ -124,30 +124,25 @@ public class Fragment2 extends Fragment {
  //(""+int); 이렇게 넣어야함
     public void printAir(JSONObject JSONAir){ //공기데이터
         try {
-<<<<<<< Updated upstream
-            CO = JSONAir.getInt("SN1"); //각 키값들을 꺼내와서 String 변수로 지정
-            NO2 = JSONAir.getInt("SN2");
-            SO2 = JSONAir.getInt("SN3");
-            O3 = JSONAir.getInt("SN4");
-            PM25 = JSONAir.getInt("PM25");
-            TEM = JSONAir.getInt("temp");
+            CO = JSONAir.getInt("SN1");
+
+            //CO = Integer.parseInt(JSONAir.getString("SN1")); //각 키값들을 꺼내와서 String 변수로 지정
+           /* NO2 = JSONAir.getDouble("SN2");
+            SO2 = JSONAir.getDouble("SN3");
+            O3 = JSONAir.getDouble("SN4");
+            PM25 = JSONAir.getDouble("PM25");
+            TEM = JSONAir.getDouble("temp");*/
 
             //왜 안잘라지는가
-            cotextView.setText(JSONAir.getString("SN1").substring(0,3));   //toString 이 뭔가를 String으로 바꿔주는거
-            no2textView.setText(JSONAir.getString("SN2").substring(0,3));
-            so2textView.setText(JSONAir.getString("SN3").substring(0,3));   //toString 이 뭔가를 String으로 바꿔주는거
-            o3textView.setText(JSONAir.getString("SN4").substring(0,3));
-            pm25textView.setText(JSONAir.getString("PM25").substring(0,3));
-            temtextView.setText(JSONAir.getString("temp").substring(0,3));
-=======
-            String CO = JSONAir.getString("type"); //각 키값들을 꺼내와서 String 변수로 지정
-
-
-            cotextView.setText(JSONAir.getString("type"));   //toString 이 뭔가를 String으로 바꿔주는거
-            no2textView.setText(JSONAir.getString("time"));
-            cotextView.setText(JSONAir.getString("SN1"));   //toString 이 뭔가를 String으로 바꿔주는거
+            cotextView.setText(JSONAir.getString("SN1").substring(0,4));   //toString 이 뭔가를 String으로 바꿔주는거
             no2textView.setText(JSONAir.getString("SN2"));
->>>>>>> Stashed changes
+            so2textView.setText(JSONAir.getString("SN3"));   //toString 이 뭔가를 String으로 바꿔주는거
+            o3textView.setText(JSONAir.getString("SN4"));
+            pm25textView.setText(JSONAir.getString("PM25"));
+            temtextView.setText(JSONAir.getString("temp"));
+
+            //String CO = JSONAir.getString("type"); //각 키값들을 꺼내와서 String 변수로 지정
+
 
         }catch (JSONException e) {
             e.printStackTrace();
@@ -172,12 +167,13 @@ public class Fragment2 extends Fragment {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
         for(int i=0; i<5; i++){
             yVals.add(new Entry(CO, i));
+
         }
 
         return yVals;
     }
 
-    //데이터값넣기
+   /*
     private ArrayList<Entry> setYAxisValues1(){
 
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
@@ -216,40 +212,56 @@ public class Fragment2 extends Fragment {
         return yVals3;
     }
 
+    private ArrayList<Entry> setYAxisValues4(){
+
+        ArrayList<Entry> yVals3 = new ArrayList<Entry>();
+        yVals3.add(new Entry(10, 0));
+        yVals3.add(new Entry(20, 1));
+        yVals3.add(new Entry(30, 2));
+        yVals3.add(new Entry(20, 3));
+        yVals3.add(new Entry(50, 4));
+
+        return yVals3;
+    }*/
+
     //
     private void setData() {
         ArrayList<String> xVals = setXAxisValues();
 
         ArrayList<Entry> yVals = setYAxisValues();
-        ArrayList<Entry> yVals1 = setYAxisValues1();
+        /*ArrayList<Entry> yVals1 = setYAxisValues1();
         ArrayList<Entry> yVals2 = setYAxisValues2();
         ArrayList<Entry> yVals3 = setYAxisValues3();
+        ArrayList<Entry> yVals4 = setYAxisValues4();*/
 
         LineDataSet coVals;
         LineDataSet no2Vals;
         LineDataSet so2Vals;
         LineDataSet o3Vals;
+        LineDataSet pm25Vals;
 
         // create a dataset and give it a type
         coVals = new LineDataSet(yVals, "co");  //이름바꾸는거
-        no2Vals = new LineDataSet(yVals1, "no2");
+        /*no2Vals = new LineDataSet(yVals1, "no2");
         so2Vals = new LineDataSet(yVals2, "so2");
         o3Vals = new LineDataSet(yVals3, "o3");
+        pm25Vals = new LineDataSet(yVals4, "pm25");*/
 
         coVals.setFillAlpha(110);
-        no2Vals.setFillAlpha(110);
+       /* no2Vals.setFillAlpha(110);
         so2Vals.setFillAlpha(110);
         o3Vals.setFillAlpha(110);
+        pm25Vals.setFillAlpha(110);*/
         //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
         //   set1.enableDashedLine(10f, 5f, 0f);
         // set1.enableDashedHighlightLine(10f, 5f, 0f);
         coVals.setColor(Color.BLACK);
-        no2Vals.setColor(Color.BLUE);
+       /* no2Vals.setColor(Color.BLUE);
         so2Vals.setColor(Color.RED);
         o3Vals.setColor(Color.GREEN);
-        //set1.setCircleColor(Color.BLACK);
+        pm25Vals.setCircleColor(Color.YELLOW);*/
         //set1.setLineWidth(1f);
         //set1.setCircleRadius(3f);
         //set1.setDrawCircleHole(false);
@@ -260,9 +272,10 @@ public class Fragment2 extends Fragment {
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(coVals); // add the datasets
-        dataSets.add(no2Vals);
+       /* dataSets.add(no2Vals);
         dataSets.add(so2Vals);
         dataSets.add(o3Vals);
+        dataSets.add(pm25Vals);*/
 
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
