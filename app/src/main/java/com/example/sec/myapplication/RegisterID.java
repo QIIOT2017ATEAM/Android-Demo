@@ -15,7 +15,6 @@ public class RegisterID extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_id);
 
-
         Button submit = (Button)findViewById(R.id.btn_submit);
 
         submit.setOnClickListener(new View.OnClickListener() {
