@@ -1,5 +1,7 @@
 package com.example.sec.myapplication.Fragment;
 
+import android.content.Context;
+import android.graphics.Movie;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.app.Fragment;
@@ -14,6 +16,8 @@ import com.example.sec.myapplication.MainActivity;
 import com.example.sec.myapplication.R;
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.io.InputStream;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -26,11 +30,11 @@ public class Fragment1 extends Fragment {
         // Required empty public constructor
     }
 
-    public void printHeart(int read){ //심박수 넣어줌 여기다가
-        if(text_input != null)
+    public void printHeart(int read) { //심박수 넣어줌 여기다가
+        if (text_input != null)
             text_input.setText("" + read); //인트타입 잡아넣는법
         else
-            Log.e("test","" + text_input);
+            Log.e("test", "" + text_input);
     }
 
     @Override
