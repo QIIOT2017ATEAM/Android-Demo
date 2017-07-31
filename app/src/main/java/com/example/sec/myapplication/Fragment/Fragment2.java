@@ -40,6 +40,8 @@ public class Fragment2 extends Fragment {
     TextView so2textView;
     TextView o3textView;
 
+
+
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
     }
@@ -113,7 +115,11 @@ public class Fragment2 extends Fragment {
 
     public void printAir(JSONObject JSONAir){ //공기데이터
         try {
+            String CO = JSONAir.getString("type"); //각 키값들을 꺼내와서 String 변수로 지정
+
+
             cotextView.setText(JSONAir.getString("type"));   //toString 이 뭔가를 String으로 바꿔주는거
+
             no2textView.setText(JSONAir.getString("time"));
             cotextView.setText(JSONAir.getString("SN1"));   //toString 이 뭔가를 String으로 바꿔주는거
             no2textView.setText(JSONAir.getString("SN2"));
@@ -127,7 +133,7 @@ public class Fragment2 extends Fragment {
     //x축넣는거
     private ArrayList<String> setXAxisValues(){
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("10");
+        xVals.add("10");     //수치넣는거 시간으로 바궈야함
         xVals.add("20");
         xVals.add("30");
         xVals.add("30.5");
@@ -139,7 +145,7 @@ public class Fragment2 extends Fragment {
     //데이터값넣기
     private ArrayList<Entry> setYAxisValues(){
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        yVals.add(new Entry(60, 0));
+        yVals.add(new Entry(60, 0)); //Y축 값넣는거
         yVals.add(new Entry(48, 1));
         yVals.add(new Entry(70.5f, 2));
         yVals.add(new Entry(100, 3));
@@ -161,40 +167,77 @@ public class Fragment2 extends Fragment {
         return yVals1;
     }
 
+    private ArrayList<Entry> setYAxisValues2(){
+
+        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
+        yVals2.add(new Entry(20, 0));
+        yVals2.add(new Entry(60, 1));
+        yVals2.add(new Entry(70, 2));
+        yVals2.add(new Entry(10, 3));
+        yVals2.add(new Entry(20, 4));
+
+        return yVals2;
+    }
+
+    private ArrayList<Entry> setYAxisValues3(){
+
+        ArrayList<Entry> yVals3 = new ArrayList<Entry>();
+        yVals3.add(new Entry(10, 0));
+        yVals3.add(new Entry(60, 1));
+        yVals3.add(new Entry(90, 2));
+        yVals3.add(new Entry(50, 3));
+        yVals3.add(new Entry(190, 4));
+
+        return yVals3;
+    }
+
     //
     private void setData() {
         ArrayList<String> xVals = setXAxisValues();
 
         ArrayList<Entry> yVals = setYAxisValues();
         ArrayList<Entry> yVals1 = setYAxisValues1();
+        ArrayList<Entry> yVals2 = setYAxisValues2();
+        ArrayList<Entry> yVals3 = setYAxisValues3();
 
-        LineDataSet set1;
-        LineDataSet set2;
+        LineDataSet coVals;
+        LineDataSet no2Vals;
+        LineDataSet so2Vals;
+        LineDataSet o3Vals;
 
         // create a dataset and give it a type
-        set1 = new LineDataSet(yVals, "DataSet 1");
-        set2 = new LineDataSet(yVals1, "DataSEt 2");
+        coVals = new LineDataSet(yVals, "co");  //이름바꾸는거
+        no2Vals = new LineDataSet(yVals1, "no2");
+        so2Vals = new LineDataSet(yVals2, "so2");
+        o3Vals = new LineDataSet(yVals3, "o3");
 
-        set1.setFillAlpha(110);
-        set2.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+        coVals.setFillAlpha(110);
+        no2Vals.setFillAlpha(110);
+        so2Vals.setFillAlpha(110);
+        o3Vals.setFillAlpha(110);
+        //set1.setFillColor(Color.RED);
 
         // set the line to be drawn like this "- - - - - -"
         //   set1.enableDashedLine(10f, 5f, 0f);
         // set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.setColor(Color.BLACK);
-        set1.setCircleColor(Color.BLACK);
-        set1.setLineWidth(1f);
+        coVals.setColor(Color.BLACK);
+        no2Vals.setColor(Color.BLUE);
+        so2Vals.setColor(Color.RED);
+        o3Vals.setColor(Color.GREEN);
+        //set1.setCircleColor(Color.BLACK);
+        //set1.setLineWidth(1f);
         //set1.setCircleRadius(3f);
         //set1.setDrawCircleHole(false);
-        set1.setValueTextSize(9f);
+        //set1.setValueTextSize(9f);
 
         //밑에 색넣는고얌얌
         //set1.setDrawFilled(true);
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
-        dataSets.add(set1); // add the datasets
-        dataSets.add(set2);
+        dataSets.add(coVals); // add the datasets
+        dataSets.add(no2Vals);
+        dataSets.add(so2Vals);
+        dataSets.add(o3Vals);
 
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
