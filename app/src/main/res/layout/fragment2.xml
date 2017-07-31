@@ -25,6 +25,48 @@
         android:textStyle="bold"
         android:typeface="sans" />
 
+        <TextView
+            android:id="@+id/no2textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@mipmap/co"
+            android:layout_alignTop="@mipmap/co"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <TextView
+            android:id="@+id/so2textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@mipmap/co"
+            android:layout_alignTop="@mipmap/co"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <TextView
+            android:id="@+id/o3textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@mipmap/co"
+            android:layout_alignTop="@mipmap/co"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
