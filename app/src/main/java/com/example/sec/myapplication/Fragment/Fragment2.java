@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.sec.myapplication.R;
 
@@ -26,23 +27,30 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Highlight;
 
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment2 extends Fragment {
     private LineChart mChart;
+    TextView cotextView;
 
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
     }
 
+
     public Fragment2() {
         // Required empty public constructor
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, container, false);
+        cotextView = (TextView)view.findViewById(R.id.cotextView);
 
         mChart = (LineChart) view.findViewById(R.id.chart1);
         //mChart.setOnChartGestureListener(this);
@@ -95,6 +103,13 @@ public class Fragment2 extends Fragment {
 
         return view;
     }
+
+    public void printAir(JSONObject JSONAir){ //공기데이터
+
+        cotextView.setText(JSONAir.toString()); //toString 이 뭔가를 String으로 바꿔주는거
+
+    }
+
 
     //x축넣는거
     private ArrayList<String> setXAxisValues(){

@@ -330,12 +330,15 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
                     String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
                     try { //JSONObjicet 는 무조건 try 써서 안에넣어야한다.
                         JSONObject JsonAir = new JSONObject(readMessage);
+                        fragment2.printAir(JsonAir);
 
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
+
+
                     //Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
-                    break; // ----------------------------------------------------------------------------------------------------
+                    break; // --------------------------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -423,7 +426,7 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
                 String data = intent.getStringExtra(PolarBleService.EXTRA_DATA); //교수님이 잘못보내줘서 이걸로 수정했음
                 StringTokenizer tokens = new StringTokenizer(data, ";");
                 int hr = Integer.parseInt(tokens.nextToken());
-                fragment1.setvalue(hr); // 이값을 하트비트로 출력시키는거
+                fragment1.printHeart(hr); // 이값을 하트비트로 출력시키는거
                 Log.w("heart", "" + hr);
 
 
