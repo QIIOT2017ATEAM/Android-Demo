@@ -26,7 +26,7 @@ public class Fragment1 extends Fragment {
         // Required empty public constructor
     }
 
-    public void setvalue(int read){ //심박수 넣어줌 여기다가
+    public void printHeart(int read){ //심박수 넣어줌 여기다가
         if(text_input != null)
             text_input.setText("" + read); //인트타입 잡아넣는법
         else
@@ -36,7 +36,8 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment1,container, false);
+        view = inflater.inflate(R.layout.fragment1,container, false);  //xml 에 씌여져 있는 view 의 정의를 실제 view 객체로 만드는 역할을
+                                                                       //LayoutInfalter 랑 이거 차이가 뭔가용??
 
          text_input = (TextView) view.findViewById(R.id.text_input);
 
