@@ -28,29 +28,37 @@
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/input_name_first"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/input_yourid"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="First name"
-            android:inputType="textEmailAddress" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/input_name_last"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/input_yourid"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Last name"
-            android:inputType="textEmailAddress" />
+            <EditText
+                android:id="@+id/input_name_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/input_yourid"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="First name"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/input_name_last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/input_yourid"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Last name"
+                android:inputType="textEmailAddress" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/input_yourpw1"

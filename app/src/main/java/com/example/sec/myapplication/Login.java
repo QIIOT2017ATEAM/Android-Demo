@@ -1,6 +1,8 @@
 package com.example.sec.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,10 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //액션바 설정하는거//
+        getSupportActionBar().setTitle("Login");//액션바 타이틀 변경하는거
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffd777"))); //액션바 배경색 변경 0xFF339999
 
         Button login = (Button)findViewById(R.id.btn_login);
         Button register = (Button)findViewById(R.id.btn_register);

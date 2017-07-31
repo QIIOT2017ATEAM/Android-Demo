@@ -44,8 +44,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:layout_marginRight="30dp"
+                    android:layout_gravity="center"
+                    android:text="Check"/>
 
-                    android:layout_gravity="center"/>
 
             </LinearLayout>
 

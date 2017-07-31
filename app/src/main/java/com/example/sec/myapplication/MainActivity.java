@@ -10,12 +10,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+//import android.support.v7.app.ActionBar;
+import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
 
         //액션바 설정하는거//
         getSupportActionBar().setTitle("A");//액션바 타이틀 변경하는거
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999)); //액션바 배경색 변경
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffd777"))); //액션바 배경색 변경 0xFF339999
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//홈버튼 표시
         //액션바 숨기기
         //hideActionBar();
