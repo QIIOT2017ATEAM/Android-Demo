@@ -124,6 +124,7 @@ public class Fragment2 extends Fragment {
  //(""+int); 이렇게 넣어야함
     public void printAir(JSONObject JSONAir){ //공기데이터
         try {
+<<<<<<< Updated upstream
             CO = JSONAir.getInt("SN1"); //각 키값들을 꺼내와서 String 변수로 지정
             NO2 = JSONAir.getInt("SN2");
             SO2 = JSONAir.getInt("SN3");
@@ -138,6 +139,15 @@ public class Fragment2 extends Fragment {
             o3textView.setText(JSONAir.getString("SN4").substring(0,3));
             pm25textView.setText(JSONAir.getString("PM25").substring(0,3));
             temtextView.setText(JSONAir.getString("temp").substring(0,3));
+=======
+            String CO = JSONAir.getString("type"); //각 키값들을 꺼내와서 String 변수로 지정
+
+
+            cotextView.setText(JSONAir.getString("type"));   //toString 이 뭔가를 String으로 바꿔주는거
+            no2textView.setText(JSONAir.getString("time"));
+            cotextView.setText(JSONAir.getString("SN1"));   //toString 이 뭔가를 String으로 바꿔주는거
+            no2textView.setText(JSONAir.getString("SN2"));
+>>>>>>> Stashed changes
 
         }catch (JSONException e) {
             e.printStackTrace();
