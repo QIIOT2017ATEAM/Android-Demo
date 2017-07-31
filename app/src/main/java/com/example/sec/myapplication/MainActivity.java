@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
                     }
 
 
-                    //Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
                     break; // --------------------------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:
