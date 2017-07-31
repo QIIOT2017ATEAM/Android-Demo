@@ -27,6 +27,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Highlight;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -35,6 +36,9 @@ import org.json.JSONObject;
 public class Fragment2 extends Fragment {
     private LineChart mChart;
     TextView cotextView;
+    TextView no2textView;
+    TextView so2textView;
+    TextView o3textView;
 
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -51,6 +55,9 @@ public class Fragment2 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment2, container, false);
         cotextView = (TextView)view.findViewById(R.id.cotextView);
+        no2textView = (TextView)view.findViewById(R.id.no2textView);
+        so2textView = (TextView)view.findViewById(R.id.so2textView);
+        o3textView = (TextView)view.findViewById(R.id.o3textView);
 
         mChart = (LineChart) view.findViewById(R.id.chart1);
         //mChart.setOnChartGestureListener(this);
@@ -105,9 +112,15 @@ public class Fragment2 extends Fragment {
     }
 
     public void printAir(JSONObject JSONAir){ //공기데이터
+        try {
+            cotextView.setText(JSONAir.getString("type"));   //toString 이 뭔가를 String으로 바꿔주는거
+            no2textView.setText(JSONAir.getString("time"));
+            cotextView.setText(JSONAir.getString("SN1"));   //toString 이 뭔가를 String으로 바꿔주는거
+            no2textView.setText(JSONAir.getString("SN2"));
 
-        cotextView.setText(JSONAir.toString()); //toString 이 뭔가를 String으로 바꿔주는거
-
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
