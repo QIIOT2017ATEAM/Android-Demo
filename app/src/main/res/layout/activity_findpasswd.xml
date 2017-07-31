@@ -34,11 +34,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="30dp"
                     android:inputType="textPersonName"
-<<<<<<< HEAD
+
                     android:hint="ID (e-mail)"/>
-=======
-                    android:hint="ID (e-mail)" />
->>>>>>> app
 
                 <Button
                     android:id="@+id/btn_check"
@@ -47,11 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:layout_marginRight="30dp"
-<<<<<<< HEAD
-                    android:layout_gravity="center"
-=======
->>>>>>> app
-                    android:text="CHECK" />
+
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
