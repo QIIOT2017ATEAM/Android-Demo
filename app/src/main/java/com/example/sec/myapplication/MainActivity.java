@@ -41,6 +41,7 @@ import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
 import com.example.sec.myapplication.Heart.PolarBleService;
+import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,11 +68,13 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
 
     private Button btn_1, btn_2, btn_3, btn_4;
 
+
     Fragment1 fragment1;
     Fragment2 fragment2;
     Fragment3 fragment3;
     Fragment4 fragment4;//인스턴스변수이름ㅅㄴ언
     //객체는 클래스의 타입으로 선언되었을 때를 의미하는 것이고, 그 객체가 메모리에 할당되어 실제 사용될 때를 인스턴스
+
 
 
 
@@ -170,6 +173,7 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
             case R.id.btn_2 :
                 // '버튼2' 클릭 시 '프래그먼트2' 호출
                 callFragment(FRAGMENT2);
+
                 break;
 
             case R.id.btn_3 :
@@ -329,20 +333,22 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
                     mConversationArrayAdapter.add("Me:  " + writeMessage);
                     break; */
                 case Constants.MESSAGE_READ://핸들러로와서 메세지 받을경우에 일로와서 이거실행
+
                     byte[] readBuf = (byte[]) msg.obj; //byte한글자 ,버퍼가 문자
                     String readMessage = new String(readBuf, 0, msg.arg1); //byte를 문자열로 변경, 0 : 처음부터 끝까지
-                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+                    //Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+
                     try { //JSONObjicet 는 무조건 try 써서 안에넣어야한다.
+
                         JSONObject JsonAir = new JSONObject(readMessage);
                         fragment2.printAir(JsonAir);
-
 
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
 
 
-                    Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
+                    //Toast.makeText(activity, readMessage, Toast.LENGTH_SHORT).show(); //readMessage 로 들어감 값이
                     break; // --------------------------------------------------------------------------------------------------------------------
 
                 case Constants.MESSAGE_DEVICE_NAME:

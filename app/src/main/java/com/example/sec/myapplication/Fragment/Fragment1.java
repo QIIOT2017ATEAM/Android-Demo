@@ -36,8 +36,12 @@ public class Fragment1 extends Fragment {
 
     public View view;
     TextView text_input;
+    int Hcount = 0;
+    int hrt = 0;
 
-    private LineChart mChart;
+    public LineChart Hchart;
+    public ArrayList<String> hxVals = new ArrayList<String>();
+    public ArrayList<Entry> Heartvalue = new ArrayList<Entry>();
 
     public Fragment1() {
         // Required empty public constructor
@@ -47,11 +51,14 @@ public class Fragment1 extends Fragment {
         super.onCreate(saveInstanceState);
     }
 
-    public void printHeart(int read) { //심박수 넣어줌 여기다가
+    public void printHeart(int hr) { //심박수 넣어줌 여기다가
+        Hcount++;
+        hrt = hr;
         if (text_input != null)
-            text_input.setText("" + read); //인트타입 잡아넣는법
+            text_input.setText("" + hr); //인트타입 잡아넣는법
         else
             Log.e("test", "" + text_input);
+        //setData();
     }
 
     @Override
@@ -67,116 +74,36 @@ public class Fragment1 extends Fragment {
         //MainActivity mainActivity = new MainActivity();  //mainactivity load
         // Inflate the layout for this fragment
 
-        mChart = (LineChart) view.findViewById(R.id.chart1);
-        //mChart.setOnChartGestureListener(this);
-        //mChart.setOnChartValueSelectedListener(this);
-        mChart.setDrawGridBackground(false);
-
-        // add data
-        setData();
-
-        // get the legend (only possible after setting data)
-        Legend l = mChart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        l.setForm(Legend.LegendForm.LINE);
-
-        // no description text
-        //mChart.setDescription("Demo Line Chart");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
-
-        // enable touch gestures
-        mChart.setTouchEnabled(true);
-
-        // enable scaling and dragging
-        mChart.setDragEnabled(true);
-        mChart.setScaleEnabled(true);
-        // mChart.setScaleXEnabled(true);
-        // mChart.setScaleYEnabled(true);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaxValue(220f);
-        leftAxis.setAxisMinValue(-50f);
-        //leftAxis.setYOffset(20f);
-        //leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        //leftAxis.setDrawZeroLine(false);
-
-        // limit lines are drawn behind data (and not on top)
-        //leftAxis.setDrawLimitLinesBehindData(true);
-
-        mChart.getAxisRight().setEnabled(false);
-
-        //mChart.getViewPortHandler().setMaximumScaleY(2f);
-        //mChart.getViewPortHandler().setMaximumScaleX(2f);
-
-        //mChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-
-        //  dont forget to refresh the drawing
-        mChart.invalidate();
+        ;
 
         return view;
     }
 
-    //x축넣는거
-    private ArrayList<String> setXAxisValues(){
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("0");     //수치넣는거 시간으로 바궈야함
-        xVals.add("1");
-        xVals.add("2");
-        xVals.add("3");
-        xVals.add("4");
+    public void setData() {
+        Hcount++;
 
-        return xVals;
-    }
+        //ArrayList<String> xVals = new ArrayList<String>(); //x축세팅 위로올림
+        hxVals.add(String.valueOf(Hcount)); //heart x바라서 이름이럼
 
-    //데이터값넣기
-    private ArrayList<Entry> setYAxisValues(){
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-        for(int i=0; i<5; i++){
-            yVals.add(new Entry(Integer.parseInt((String) text_input.getText()), i));
-        }
 
-        return yVals;
-    }
+        //ArrayList<Entry> covalue = new ArrayList<Entry>(); //y축세팅 위로올림
+        Heartvalue.add(new Entry(hrt, Hcount));
 
-    //
-    private void setData() {
-        ArrayList<String> xVals = setXAxisValues();
 
-        ArrayList<Entry> yVals = setYAxisValues();
+        LineDataSet heart_chart = new LineDataSet(Heartvalue, "Heart");
 
-        LineDataSet heartVals;
-
-        // create a dataset and give it a type
-        heartVals = new LineDataSet(yVals, "Heart rate");  //이름바꾸는거
-
-        heartVals.setFillAlpha(110);
-        //set1.setFillColor(Color.RED);
-
-        // set the line to be drawn like this "- - - - - -"
-        //   set1.enableDashedLine(10f, 5f, 0f);
-        // set1.enableDashedHighlightLine(10f, 5f, 0f);
-        heartVals.setColor(Color.BLACK);
-        //set1.setCircleColor(Color.BLACK);
-        //set1.setLineWidth(1f);
-        //set1.setCircleRadius(3f);
-        //set1.setDrawCircleHole(false);
-        //set1.setValueTextSize(9f);
-
-        //밑에 색넣는고얌얌
-        //set1.setDrawFilled(true);
+        heart_chart.setAxisDependency(YAxis.AxisDependency.LEFT); //creat lineDataSet
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
-        dataSets.add(heartVals); // add the datasets
+        dataSets.add(heart_chart);
 
-        // create a data object with the datasets
-        LineData data = new LineData(xVals, dataSets);
+        LineData heart_data = new LineData(hxVals, dataSets);
 
-        // set data
-        mChart.setData(data);
-
+        Hchart.setData(heart_data);
+        Hchart.invalidate(); //  dont forget to refresh the drawing
     }
+
+
+
 
 }
