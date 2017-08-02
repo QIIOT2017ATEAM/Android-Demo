@@ -134,11 +134,21 @@ public class Fragment2 extends Fragment {
         LineDataSet o3chart = new LineDataSet(o3value, "O3");
         LineDataSet pm25chart = new LineDataSet(pm25value, "PM25");
 
+        //라인색변경
+        cochart.setColor(Color.parseColor("#FF0000"));
+        so2chart.setColor(Color.parseColor("#0000FF"));
+        no2chart.setColor(Color.parseColor("#FCFF00"));
+        o3chart.setColor(Color.parseColor("#00FFE4"));
+        pm25chart.setColor(Color.parseColor("#FF00F0"));
+
         cochart.setAxisDependency(YAxis.AxisDependency.LEFT); //creat lineDataSet
         so2chart.setAxisDependency(YAxis.AxisDependency.LEFT);
         no2chart.setAxisDependency(YAxis.AxisDependency.LEFT);
         o3chart.setAxisDependency(YAxis.AxisDependency.LEFT);
         pm25chart.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        chart.getAxis(YAxis.AxisDependency.RIGHT).setEnabled(false); //오른쪽 숫자 없앰
+        chart.setDescription(null); //Description text 없앰
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(cochart);
@@ -152,7 +162,6 @@ public class Fragment2 extends Fragment {
         LineData no2data = new LineData(axVals, dataSets);
         LineData o3data = new LineData(axVals, dataSets);
         LineData pm25data = new LineData(axVals, dataSets);
-
 
         chart.setData(codata);
         chart.setData(so2data);
