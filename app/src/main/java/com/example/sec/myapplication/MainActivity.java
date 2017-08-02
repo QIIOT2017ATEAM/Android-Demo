@@ -6,19 +6,18 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 //import android.support.v7.app.ActionBar;
-import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Menu;
@@ -36,30 +36,25 @@ import android.view.MenuItem;
 import com.example.sec.myapplication.Bluetooth.BluetoothChatService;
 import com.example.sec.myapplication.Bluetooth.Constants;
 import com.example.sec.myapplication.Bluetooth.DeviceListActivity;
+import com.example.sec.myapplication.Db.NetworkUtil;
+import com.example.sec.myapplication.Db.RequestHttpURLConnection;
 import com.example.sec.myapplication.Fragment.Fragment1;
 import com.example.sec.myapplication.Fragment.Fragment2;
 import com.example.sec.myapplication.Fragment.Fragment3;
 import com.example.sec.myapplication.Fragment.Fragment4;
 import com.example.sec.myapplication.Heart.PolarBleService;
-import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.TimeZone;
+import java.net.MalformedURLException;
+
 
 
 public class MainActivity extends AppCompatActivity      implements View.OnClickListener {
+
+    public TextView tv_outPut;
 
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
@@ -113,6 +108,9 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
     String mpolarBleDeviceAddress;	//Your need to pass the address
     int batteryLevel=0;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) { //이 액티비티가 다시실행될떄마다 초기화
         super.onCreate(savedInstanceState); //필요함
@@ -146,6 +144,19 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
         btn_4.setOnClickListener(this);
+
+        /*
+        tv_outPut = (TextView) findViewById(R.id.tv_outPut);
+        String url = " ";//url설정
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        NetworkTask networkTask = new NetworkTask(url, null);
+        networkTask.execute();
+        */
+
+        NetworkUtil.setNetworkPolicy();
+
+
 
 
         // 임의로 액티비티 호출 시점에 어느 프레그먼트를 프레임레이아웃에 띄울 것인지를 정함
@@ -459,6 +470,7 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
                 long lSessionId = Long.parseLong(tokens.nextToken());
 
                 //Enable your UI
+                Toast.makeText(MainActivity.this, "connect to polar", Toast.LENGTH_SHORT).show(); //폴라연결되면 토스트
             }
         }
     };
@@ -496,6 +508,40 @@ public class MainActivity extends AppCompatActivity      implements View.OnClick
         }
     };
 //-----------------------------------------------------------------------------------------------------------------------Heart
+
+
+
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+            tv_outPut.setText(s);
+        }
+    }
+
+
 
 }
 

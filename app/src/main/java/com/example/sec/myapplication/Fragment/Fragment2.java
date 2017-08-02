@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.sec.myapplication.MainActivity;
 import com.example.sec.myapplication.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -97,9 +98,9 @@ public class Fragment2 extends Fragment {
 
 
             //왜 안잘라지는가
-            cotextView.setText(JSONAir.getString("CO"));   //toString 이 뭔가를 String으로 바꿔주는거
+            cotextView.setText(JSONAir.getString("CO")); //textView에 JSON받은거 바로넣는거
             no2textView.setText(JSONAir.getString("NO2"));
-            so2textView.setText(JSONAir.getString("SO2"));   //toString 이 뭔가를 String으로 바꿔주는거
+            so2textView.setText(JSONAir.getString("SO2"));
             o3textView.setText(JSONAir.getString("O3"));
             pm25textView.setText(JSONAir.getString("PM25"));
             temtextView.setText(JSONAir.getString("temp"));
@@ -128,10 +129,10 @@ public class Fragment2 extends Fragment {
         pm25value.add(new Entry(PM25, count));
 
         LineDataSet cochart = new LineDataSet(covalue, "CO");
-        LineDataSet so2chart = new LineDataSet(covalue, "SO2");
-        LineDataSet no2chart = new LineDataSet(covalue, "NO2");
-        LineDataSet o3chart = new LineDataSet(covalue, "O3");
-        LineDataSet pm25chart = new LineDataSet(covalue, "PM25");
+        LineDataSet so2chart = new LineDataSet(so2value, "SO2");
+        LineDataSet no2chart = new LineDataSet(no2value, "NO2");
+        LineDataSet o3chart = new LineDataSet(o3value, "O3");
+        LineDataSet pm25chart = new LineDataSet(pm25value, "PM25");
 
         cochart.setAxisDependency(YAxis.AxisDependency.LEFT); //creat lineDataSet
         so2chart.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -151,6 +152,7 @@ public class Fragment2 extends Fragment {
         LineData no2data = new LineData(axVals, dataSets);
         LineData o3data = new LineData(axVals, dataSets);
         LineData pm25data = new LineData(axVals, dataSets);
+
 
         chart.setData(codata);
         chart.setData(so2data);

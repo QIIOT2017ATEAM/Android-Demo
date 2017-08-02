@@ -57,7 +57,19 @@
                 android:layout_weight="1"
                 android:background="@mipmap/setting" />
 
+
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_outPut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ouput"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/fragment_container"
@@ -66,6 +78,8 @@
             android:layout_above="@+id/linearLayout">
 
         </FrameLayout>
+
+
     </LinearLayout>
 
 </RelativeLayout>
